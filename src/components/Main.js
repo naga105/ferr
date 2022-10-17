@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navbar, NavbarBrand } from "reactstrap";
+
 import Menu from "./menu";
 import SelectDish from "./SelectDish";
 import { DISHES } from "../shared/dishes";
@@ -9,6 +9,7 @@ import { LEADERS } from "../shared/leaders";
 import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
+import About from "./about";
 import Contact from "./contact/Contact";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
@@ -47,7 +48,7 @@ function Main() {
         />
 
         <Route path="/menu/:dishId" element={<SelectDish data={data} />} />
-
+        <Route path="/aboutus" element={<About leaders={data.leaders} />} />
         <Route path="/contactus" element={<Contact />} />
       </Routes>
       <Footer />

@@ -1,6 +1,6 @@
 function RenderComment({ comments }) {
   return (
-    <div className="col-12 col-md-5 m-1 text-left ">
+    <>
       <h4>Comments</h4>
       {comments ? (
         comments.map((comm) => {
@@ -21,7 +21,7 @@ function RenderComment({ comments }) {
       ) : (
         <div></div>
       )}
-    </div>
+    </>
   );
 }
 export default RenderComment;
