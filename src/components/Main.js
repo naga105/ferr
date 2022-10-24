@@ -13,6 +13,15 @@ import About from "./about";
 import Contact from "./contact/Contact";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
+import { connect } from "react-redux";
+const mapStateToProps = (state) => {
+  return {
+    dishes: state.dishes,
+    comments: state.comments,
+    promotions: state.promotions,
+    leaders: state.leaders,
+  };
+};
 function Main() {
   const [data, setData] = useState({
     dishes: DISHES,
@@ -56,4 +65,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default connect(mapStateToProps)(Main);
