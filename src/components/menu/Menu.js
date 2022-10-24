@@ -27,7 +27,7 @@ function Menu({ dishes, setSelectDish }) {
         </div>
         <div className="row">
           {dishes.map((dish) => (
-            <div className="col-12 col-md-5 m-1 text-left font-weight-bold">
+            <div className="col-12  col-md-5 m-1 text-left font-weight-bold">
               <Card
                 key={dish.id}
                 onClick={() => {

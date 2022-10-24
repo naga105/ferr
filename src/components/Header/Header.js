@@ -1,23 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
-  Nav,
   Navbar,
   NavbarBrand,
+  Nav,
   NavbarToggler,
   Collapse,
   NavItem,
   Jumbotron,
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  Form,
+  FormGroup,
+  Input,
+  Label,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 
 function Header() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState({
+    isNavOpen: false,
+    isModalOpen: false,
+  });
+  let { username, password, remember } = useRef();
   const handleNav = () => {
-    setIsOpen(!isOpen);
-    console.log(isOpen);
+    setIsOpen({ ...isOpen, isNavOpen: !isOpen.isNavOpen });
   };
+  const toggleModal = () => {
+    setIsOpen({ ...isOpen, isModalOpen: !isOpen.isModalOpen });
+  };
+  const handleLogin = (event) => {
+    event.preventDefault();
+    toggleModal();
+    alert(
+      "Username: " +
+        username.value +
+        " Password: " +
+        password.value +
+        " Remember: " +
+        remember.checked
+    );
+  };
+
   return (
     <>
+      <Modal isOpen={isOpen.isModalOpen} toggle={toggleModal}>
+        <ModalHeader toggle={toggleModal}>Login</ModalHeader>
+        <ModalBody>
+          <Form onSubmit={handleLogin}>
+            <FormGroup>
+              <Label htmlFor="username">Username</Label>
+              <Input
+                type="text"
+                id="username"
+                name="username"
+                ref={username}
+                innerRef={(input) => (username = input)}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Password</Label>
+              <Input
+                type="password"
+                id="password"
+                name="password"
+                innerRef={(input) => (password = input)}
+              />
+            </FormGroup>
+            <FormGroup check>
+              <Label check>
+                <Input
+                  type="checkbox"
+                  name="remember"
+                  innerRef={(input) => (remember = input)}
+                />
+                Remember me
+              </Label>
+            </FormGroup>
+            <Button type="submit" value="submit" color="primary">
+              Login
+            </Button>
+          </Form>
+        </ModalBody>
+      </Modal>
       <Navbar dark expand="md">
         <div className="container container-flex">
           <NavbarToggler onClick={handleNav} />
@@ -29,7 +95,7 @@ function Header() {
               alt="Ristorante Con Fusion"
             />
           </NavbarBrand>
-          <Collapse isOpen={isOpen} navbar>
+          <Collapse isOpen={isOpen.isNavOpen} navbar>
             <Nav navbar>
               <NavItem>
                 <Link className="nav-link" to="/home">
@@ -57,6 +123,13 @@ function Header() {
             </Nav>
           </Collapse>
         </div>
+        <Nav className="ml-auto" navbar>
+          <NavItem>
+            <Button outline onClick={toggleModal}>
+              <span className="fa fa-sign-in fa-lg"></span> Login
+            </Button>
+          </NavItem>
+        </Nav>
       </Navbar>
       <div className="jumbotron">
         <div className="container">
