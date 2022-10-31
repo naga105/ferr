@@ -25,13 +25,19 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchDishes());
   },
 });
-function Main({ dishes, comments, promotions, leaders, addComment }) {
+function Main({
+  dishes,
+  comments,
+  promotions,
+  leaders,
+  addComment,
+  fetchDishes,
+}) {
   const [selectedDish, setSelectedDish] = useState(null);
 
   useEffect(() => {
     fetchDishes();
   }, []);
-  console.log(dishes);
 
   return (
     <Router>
