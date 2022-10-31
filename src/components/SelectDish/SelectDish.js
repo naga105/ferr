@@ -1,12 +1,22 @@
 import DishDetail from "./DishDetail";
 import { useParams } from "react-router-dom";
-const SelectDish = ({ data }) => {
+import { addComment } from "../../redux/ActionCreators";
+const SelectDish = ({
+  dishes,
+  dishesLoading,
+  dishesErrMess,
+  comments,
+  addComment,
+}) => {
   const { dishId } = useParams();
   console.log(dishId);
   return (
     <DishDetail
-      selectDish={data.dishes.filter((dish) => dish.id == dishId)[0]}
-      comments={data.comments.filter((comment) => comment.dishId == dishId)}
+      selectDish={dishes.filter((dish) => dish.id == dishId)[0]}
+      isLoading={dishesLoading}
+      cerrMess={dishesErrMess}
+      comments={comments.filter((comment) => comment.dishId == dishId)}
+      addComment={addComment}
     />
   );
 };

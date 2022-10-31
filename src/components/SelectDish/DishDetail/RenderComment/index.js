@@ -1,1 +1,3 @@
-export { default } from "./RenderComment.js"
+import RenderComment from "./RenderComment";
+import CommentForm from "./CommentForm";
+export { RenderComment, CommentForm };

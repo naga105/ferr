@@ -1,4 +1,4 @@
-function RenderComment({ comments }) {
+function RenderComment({ comments, addComment, dishId }) {
   return (
     <>
       <h4>Comments</h4>

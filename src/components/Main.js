@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-
+import React, { useEffect } from "react";
+import { addComment, fetchDishes } from "../redux/ActionCreators";
 import Menu from "./menu";
 import SelectDish from "./SelectDish";
-import { DISHES } from "../shared/dishes";
-import { COMMENTS } from "../shared/comments";
-import { PROMOTIONS } from "../shared/promotions";
-import { LEADERS } from "../shared/leaders";
 import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -22,14 +18,20 @@ const mapStateToProps = (state) => {
     leaders: state.leaders,
   };
 };
-function Main() {
-  const [data, setData] = useState({
-    dishes: DISHES,
-    comments: COMMENTS,
-    promotions: PROMOTIONS,
-    leaders: LEADERS,
-  });
+const mapDispatchToProps = (dispatch) => ({
+  addComment: (dishId, rating, author, comment) =>
+    dispatch(addComment(dishId, rating, author, comment)),
+  fetchDishes: () => {
+    dispatch(fetchDishes());
+  },
+});
+function Main({ dishes, comments, promotions, leaders, addComment }) {
   const [selectedDish, setSelectedDish] = useState(null);
+
+  useEffect(() => {
+    fetchDishes();
+  }, []);
+  console.log(dishes);
 
   return (
     <Router>
@@ -41,9 +43,11 @@ function Main() {
           path="/home"
           element={
             <Home
-              dish={data.dishes.filter((dish) => dish.featured)[0]}
-              promotion={data.promotions.filter((promo) => promo.featured)[0]}
-              leader={data.leaders.filter((leader) => leader.featured)[0]}
+              dish={dishes.dishes.filter((dish) => dish.featured)[0]}
+              dishesLoading={dishes.isLoading}
+              dishesErrMess={dishes.errMess}
+              promotion={promotions.filter((promo) => promo.featured)[0]}
+              leader={leaders.filter((leader) => leader.featured)[0]}
             />
           }
         />
@@ -52,12 +56,28 @@ function Main() {
           exact
           path="/menu"
           element={
-            <Menu dishes={data.dishes} setSelectDish={setSelectedDish} />
+            <Menu
+              dishes={dishes.dishes}
+              dishesLoading={dishes.isLoading}
+              dishesErrMess={dishes.errMess}
+              setSelectDish={setSelectedDish}
+            />
           }
         />
 
-        <Route path="/menu/:dishId" element={<SelectDish data={data} />} />
-        <Route path="/aboutus" element={<About leaders={data.leaders} />} />
+        <Route
+          path="/menu/:dishId"
+          element={
+            <SelectDish
+              dishes={dishes.dishes}
+              dishesLoading={dishes.isLoading}
+              dishesErrMess={dishes.errMess}
+              comments={comments}
+              addComment={addComment}
+            />
+          }
+        />
+        <Route path="/aboutus" element={<About leaders={leaders} />} />
         <Route path="/contactus" element={<Contact />} />
       </Routes>
       <Footer />
@@ -65,4 +85,4 @@ function Main() {
   );
 }
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
