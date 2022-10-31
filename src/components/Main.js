@@ -9,6 +9,7 @@ import About from "./about";
 import Contact from "./contact/Contact";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Home";
+import { actions } from "react-redux-form";
 import { connect } from "react-redux";
 const mapStateToProps = (state) => {
   return {
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
+  resetFeedbackForm: () => {
+    dispatch(actions.reset("feedback"));
+  },
 });
 function Main({
   dishes,
@@ -32,6 +36,7 @@ function Main({
   leaders,
   addComment,
   fetchDishes,
+  resetFeedbackForm,
 }) {
   const [selectedDish, setSelectedDish] = useState(null);
 
@@ -84,7 +89,10 @@ function Main({
           }
         />
         <Route path="/aboutus" element={<About leaders={leaders} />} />
-        <Route path="/contactus" element={<Contact />} />
+        <Route
+          path="/contactus"
+          element={<Contact resetFeedbackForm={resetFeedbackForm} />}
+        />
       </Routes>
       <Footer />
     </Router>
