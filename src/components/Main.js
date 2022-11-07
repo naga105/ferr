@@ -1,5 +1,10 @@
-import React, { useEffect } from "react";
-import { addComment, fetchDishes } from "../redux/ActionCreators";
+import React, { useEffect, useReducer } from "react";
+import {
+  postComment,
+  fetchDishes,
+  fetchComments,
+  fetchPromos,
+} from "../redux/ActionCreators";
 import Menu from "./menu";
 import SelectDish from "./SelectDish";
 import { useState } from "react";
@@ -20,28 +25,34 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = (dispatch) => ({
-  addComment: (dishId, rating, author, comment) =>
-    dispatch(addComment(dishId, rating, author, comment)),
+  postComment: (dishId, rating, author, comment) =>
+    dispatch(postComment(dishId, rating, author, comment)),
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
   resetFeedbackForm: () => {
     dispatch(actions.reset("feedback"));
   },
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
 });
 function Main({
   dishes,
   comments,
   promotions,
   leaders,
-  addComment,
+  postComment,
   fetchDishes,
   resetFeedbackForm,
+  fetchComments,
+  fetchPromos,
 }) {
   const [selectedDish, setSelectedDish] = useState(null);
 
   useEffect(() => {
     fetchDishes();
+    fetchPromos();
+    fetchComments();
   }, []);
 
   return (
@@ -57,7 +68,11 @@ function Main({
               dish={dishes.dishes.filter((dish) => dish.featured)[0]}
               dishesLoading={dishes.isLoading}
               dishesErrMess={dishes.errMess}
-              promotion={promotions.filter((promo) => promo.featured)[0]}
+              promotion={
+                promotions.promotions.filter((promo) => promo.featured)[0]
+              }
+              promoLoading={promotions.promotions.isLoading}
+              promoErrMess={promotions.promotions.errMess}
               leader={leaders.filter((leader) => leader.featured)[0]}
             />
           }
@@ -83,8 +98,8 @@ function Main({
               dishes={dishes.dishes}
               dishesLoading={dishes.isLoading}
               dishesErrMess={dishes.errMess}
-              comments={comments}
-              addComment={addComment}
+              comments={comments.comments}
+              postComment={postComment}
             />
           }
         />

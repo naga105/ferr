@@ -15,12 +15,13 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { RenderComment, CommentForm } from "./RenderComment";
 import Loading from "../../loading";
+import { baseUrl } from "../../../shared/basedUrl";
 function DishDetail({
   selectDish,
   dishesLoading,
   dishesErrMess,
   comments,
-  addComment,
+  postComment,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -59,7 +60,7 @@ function DishDetail({
               <Card>
                 <CardImg
                   width="100%"
-                  src={selectDish.image}
+                  src={baseUrl + selectDish.image}
                   alt={selectDish.name}
                 />
                 <CardBody>
@@ -74,7 +75,7 @@ function DishDetail({
               <RenderComment
                 comments={comments}
                 dishId={selectDish.id}
-                addComment={addComment}
+                postComment={postComment}
               />
               <Button outline color="secondary" onClick={toggleModal}>
                 <span>
@@ -86,7 +87,7 @@ function DishDetail({
                 isOpen={isOpen}
                 toggleModal={toggleModal}
                 dishId={selectDish.id}
-                addComment={addComment}
+                postComment={postComment}
               />
             </div>
           </div>

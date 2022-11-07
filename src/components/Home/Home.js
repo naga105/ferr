@@ -1,6 +1,14 @@
 import RenderCard from "./RenderCard";
 
-function Home({ dish, dishesLoading, dishesErrMess, promotion, leader }) {
+function Home({
+  dish,
+  dishesLoading,
+  dishesErrMess,
+  promoErrMess,
+  promoLoading,
+  promotion,
+  leader,
+}) {
   console.log(dish);
   return (
     <div className="container">
@@ -13,7 +21,11 @@ function Home({ dish, dishesLoading, dishesErrMess, promotion, leader }) {
           />
         </div>
         <div className="col-12 col-md m-1">
-          <RenderCard item={promotion} />
+          <RenderCard
+            item={promotion}
+            isLoading={promoLoading}
+            errMess={promoErrMess}
+          />
         </div>
         <div className="col-12 col-md m-1">
           <RenderCard item={leader} />

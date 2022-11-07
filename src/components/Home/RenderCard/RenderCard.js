@@ -8,6 +8,7 @@ import {
   CardSubtitle,
 } from "reactstrap";
 import Loading from "../../loading";
+import { baseUrl } from "../../../shared/basedUrl";
 function RenderCard({ item, isLoading, errMess }) {
   if (isLoading) {
     return <Loading />;
@@ -16,7 +17,7 @@ function RenderCard({ item, isLoading, errMess }) {
   } else
     return (
       <Card>
-        <CardImg src={item?.image} alt={item?.name} />
+        <CardImg src={baseUrl + item.image} alt={item.name} />
 
         <CardBody>
           <CardTitle>{item?.name}</CardTitle>

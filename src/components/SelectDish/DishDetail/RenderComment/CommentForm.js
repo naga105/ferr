@@ -15,7 +15,7 @@ export default function CommentForm({
   isOpen,
   toggleModal,
   dishId,
-  addComment,
+  postComment,
 }) {
   const handleLogin = (event) => {
     event.preventDefault();
@@ -36,11 +36,15 @@ export default function CommentForm({
 
   const handleSubmit = (values) => {
     console.log(values);
-    // setInput({
-    //   rating: values.rating,
-    //   name: values.name,
-    //   comment: values.comment
-    // });
+    postComment(dishId, values.rating, values.author, values.comment);
+    // alert(
+    //   "Rating: " +
+    //     values.rating +
+    //     "\nname: " +
+    //     values.name +
+    //     "\ncomment: " +
+    //     values.comment
+    // );
   };
 
   const handleInputChange = (event) => {

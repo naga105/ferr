@@ -81,8 +81,6 @@ function Contact(props) {
     alert("Current State is: " + JSON.stringify(values));
 
     props.resetFeedbackForm();
-
-    // event.preventDefault();
   };
   return (
     <div className="container">

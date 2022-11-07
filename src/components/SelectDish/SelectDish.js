@@ -6,17 +6,17 @@ const SelectDish = ({
   dishesLoading,
   dishesErrMess,
   comments,
-  addComment,
+  postComment,
 }) => {
   const { dishId } = useParams();
   console.log(dishId);
   return (
     <DishDetail
       selectDish={dishes.filter((dish) => dish.id == dishId)[0]}
-      isLoading={dishesLoading}
-      cerrMess={dishesErrMess}
+      dishesLoading={dishesLoading}
+      dishesErrMess={dishesErrMess}
       comments={comments.filter((comment) => comment.dishId == dishId)}
-      addComment={addComment}
+      postComment={postComment}
     />
   );
 };
