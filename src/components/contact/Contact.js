@@ -114,7 +114,9 @@ function Contact(props) {
                 <Control.text
                   model=".firstname"
                   id="firstname"
+                  value={input.firstname}
                   name="firstname"
+                  onChange={handleInputChange}
                   placeholder="First Name"
                   className="form-control"
                 />
@@ -129,6 +131,8 @@ function Contact(props) {
                   model=".lastname"
                   id="lastname"
                   name="lastname"
+                  onChange={handleInputChange}
+                  value={input.lastname}
                   placeholder="Last Name"
                   className="form-control"
                 />
@@ -144,7 +148,9 @@ function Contact(props) {
                   id="telnum"
                   name="telnum"
                   placeholder="Tel. Number"
+                  value={input.telnum}
                   className="form-control"
+                  onChange={handleInputChange}
                 />
               </Col>
             </Row>
@@ -156,8 +162,10 @@ function Contact(props) {
                 <Control.text
                   model=".email"
                   id="email"
+                  value={input.email}
                   name="email"
                   placeholder="Email"
+                  onChange={handleInputChange}
                   className="form-control"
                 />
               </Col>
@@ -169,6 +177,8 @@ function Contact(props) {
                     <Control.checkbox
                       model=".agree"
                       name="agree"
+                      onChange={handleInputChange}
+                      value={input.agree}
                       className="form-check-input"
                     />{" "}
                     <strong>May we contact you?</strong>
@@ -179,6 +189,8 @@ function Contact(props) {
                 <Control.select
                   model=".contactType"
                   name="contactType"
+                  onChange={handleInputChange}
+                  value={input.contactType}
                   className="form-control"
                 >
                   <option>Tel.</option>
@@ -195,6 +207,8 @@ function Contact(props) {
                   model=".message"
                   id="message"
                   name="message"
+                  onChange={handleInputChange}
+                  value={input.message}
                   rows="12"
                   className="form-control"
                 />
