@@ -42,7 +42,18 @@ const mapDispatchToProps = (dispatch) => ({
   resetFeedbackForm: () => {
     dispatch(actions.reset("feedback"));
   },
-  postFeedbackForm: (forms) => dispatch(pushForm(forms)),
+  postFeedbackForm: (
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message
+  ) =>
+    dispatch(
+      pushForm(firstname, lastname, telnum, email, agree, contactType, message)
+    ),
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),

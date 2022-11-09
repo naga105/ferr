@@ -76,7 +76,15 @@ function Contact(props) {
   );
 
   const handleSubmit = (values) => {
-    props.postFeedbackForm(input);
+    props.postFeedbackForm(
+      input.firstname,
+      input.lastname,
+      input.telnum,
+      input.email,
+      input.agree,
+      input.contactType,
+      input.message
+    );
   };
   return (
     <div className="container">
