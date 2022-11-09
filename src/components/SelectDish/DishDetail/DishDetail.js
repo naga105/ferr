@@ -15,6 +15,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { RenderComment, CommentForm } from "./RenderComment";
 import Loading from "../../loading";
+import { FadeTransform } from "react-animation-components";
 import { baseUrl } from "../../../shared/basedUrl";
 function DishDetail({
   selectDish,
@@ -57,26 +58,34 @@ function DishDetail({
           </div>
           <div className="row">
             <div className="col-12 col-md-5 m-1">
-              <Card>
-                <CardImg
-                  width="100%"
-                  src={baseUrl + selectDish.image}
-                  alt={selectDish.name}
-                />
-                <CardBody>
-                  <CardTitle className="font-weight-bold">
-                    {selectDish.name}
-                  </CardTitle>
-                  <CardText>{selectDish.description}</CardText>
-                </CardBody>
-              </Card>
+              <FadeTransform
+                in
+                transformProps={{
+                  exitTransform: "scale(0.5) translateY(-50%)",
+                }}
+              >
+                <Card>
+                  <CardImg
+                    width="100%"
+                    src={baseUrl + selectDish.image}
+                    alt={selectDish.name}
+                  />
+                  <CardBody>
+                    <CardTitle className="font-weight-bold">
+                      {selectDish.name}
+                    </CardTitle>
+                    <CardText>{selectDish.description}</CardText>
+                  </CardBody>
+                </Card>
+              </FadeTransform>
             </div>
             <div className="col-12 col-md-5 m-1">
-              <RenderComment
-                comments={comments}
-                dishId={selectDish.id}
-                postComment={postComment}
-              />
+             
+                <RenderComment
+                  comments={comments}
+                  dishId={selectDish.id}
+                  postComment={postComment}
+                />
               <Button outline color="secondary" onClick={toggleModal}>
                 <span>
                   <FontAwesomeIcon icon={faPencil} />

@@ -10,7 +10,7 @@ import { Comments } from "./comments";
 import { Promotions } from "./promotions";
 
 import { Leaders } from "./leaders";
-
+import { Forms } from "./forms";
 import { InitialFeedback } from "./forms";
 
 import { createForms } from "react-redux-form";
@@ -26,9 +26,7 @@ export const ConfigureStore = () => {
 
       leaders: Leaders,
 
-      ...createForms({
-        feedback: InitialFeedback,
-      }),
+      forms: Forms,
     }),
     applyMiddleware(thunk, logger)
   );
