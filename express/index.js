@@ -3,12 +3,12 @@ const express = require("express"),
 const hostname = "localhost";
 const port = 3000;
 const app = express();
-app.use((req, res, next) => {
-  console.log(req.headers);
-  res.statusCode = 200;
-  res.setHeader("Content-Type", "text/html");
-  res.end("<html><body><h1>This is Express server</h1></body></html>");
-});
+const dishRouter = require("./router/dishRouter");
+const promotionRouter = require("./router/promotionRouter");
+const leaderRouter = require("./router/leaderRouter");
+app.use("/dishes", dishRouter);
+app.use("/promotion", promotionRouter);
+app.use("/leader", leaderRouter);
 const server = http.createServer(app);
 server.listen(port, hostname, () => {
   console.log(`Server running at http://${hostname}:${port}`);
